@@ -1,0 +1,6 @@
+- apt:
+    pkg:
+      - 'nginx'
+      - 'python3-certbot-nginx'
+
+- shell:  "certbot certonly --nginx --agree-tos -n -m {{ certbot_email }} -d {{ certbot_domain }}"

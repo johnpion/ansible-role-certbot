@@ -1,0 +1,2 @@
+certbot_type: cloudflare
+# certbot_enabled: false

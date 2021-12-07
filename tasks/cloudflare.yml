@@ -1,0 +1,14 @@
+- apt:
+    pkg:
+      # - ansible
+      - python3-certbot-dns-cloudflare
+
+- template:
+    src: cloudflare.ini.j2
+    dest: "/etc/letsencrypt/cloudflare.ini"
+    mode: 0640
+
+- command:  "certbot certonly --agree-tos -n -m {{ certbot_cloudflare_email }} --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini -d {{ certbot_domain }} -d *.{{ certbot_domain }}"
+  with_items: "{{ certbot_domain }}"
+  loop_control:
+    loop_var: certbot_domain
