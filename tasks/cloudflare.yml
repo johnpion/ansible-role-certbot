@@ -1,14 +1,20 @@
-- apt:
+- name: Install python module for work with certbot
+  ansible.builtin.apt:
     pkg:
-      # - ansible
       - python3-certbot-dns-cloudflare
 
-- template:
+- name: Create config
+  ansible.builtin.template:
     src: cloudflare.ini.j2
     dest: "/etc/letsencrypt/cloudflare.ini"
-    mode: 0640
+    mode: '0640'
 
-- command:  "certbot certonly --agree-tos -n -m {{ certbot_cloudflare_email }} --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini -d {{ certbot_domain }} -d *.{{ certbot_domain }}"
+- name: Create new SSL
+  ansible.builtin.command:
+    cmd: >
+      certbot certonly --agree-tos -n -m {{ certbot_cloudflare_email }} --dns-cloudflare --dns-cloudflare-credentials
+      /etc/letsencrypt/cloudflare.ini -d {{ certbot_domain }} -d *.{{ certbot_domain }}"
+    creates: "/etc/letsencrypt/live/{{ certbot_domain }}/privkey.pem"
   with_items: "{{ certbot_domain }}"
   loop_control:
     loop_var: certbot_domain

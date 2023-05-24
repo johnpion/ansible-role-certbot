@@ -1,6 +1,9 @@
-- apt:
-    pkg:
-      - 'nginx'
-      - 'python3-certbot-nginx'
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - python3-certbot-nginx
 
-- shell:  "certbot certonly --nginx --agree-tos -n -m {{ certbot_email }} -d {{ certbot_domain }}"
+- name: Create SSL
+  ansible.builtin.command:
+    cmd: "certbot certonly --nginx --agree-tos -n -m {{ certbot_email }} -d {{ certbot_domain }}"
+    creates: "/etc/letsencrypt/live/{{ certbot_domain }}/privkey.pem"
