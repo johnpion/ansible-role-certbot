@@ -15,6 +15,6 @@
       certbot certonly --agree-tos -n -m {{ certbot_cloudflare_email }} --dns-cloudflare --dns-cloudflare-credentials
       /etc/letsencrypt/cloudflare.ini -d {{ certbot_domain }} -d *.{{ certbot_domain }}"
     creates: "/etc/letsencrypt/live/{{ certbot_domain }}/privkey.pem"
-  with_items: "{{ certbot_domain }}"
-  loop_control:
-    loop_var: certbot_domain
+  loop: "{{ certbot_domain }}"
+  # loop_control:
+    # loop_var: domain
