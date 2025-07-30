@@ -16,6 +16,6 @@
       --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini
       -d {{ domain }} -d *.{{ domain }}
     creates: "/etc/letsencrypt/live/{{ domain }}/privkey.pem"
-  loop: "{{ certbot_domains }}"
+  loop: "{{ certbot_domain }}"
   loop_control:
     loop_var: domain
