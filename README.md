@@ -1,7 +1,7 @@
 # Ansible Role 'certbot'
 
 ## system
-OS: Debian 10
+OS: Debian 12
 
 ```
 vars:
