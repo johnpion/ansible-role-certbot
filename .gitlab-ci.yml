@@ -23,6 +23,7 @@ push_to_github:
     - git push --tags
   only:
     - main
+    - tags
 
 import_to_ansible_galaxy:
   stage: import_to_ansible_galaxy
@@ -31,3 +32,4 @@ import_to_ansible_galaxy:
     - ansible-galaxy role import --api-key=$ANSIBLE_GALAXY_API_KEY johnpion ansible-role-$ROLE
   only:
     - main
+    - tags
